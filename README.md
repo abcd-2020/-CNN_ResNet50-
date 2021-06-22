@@ -35,4 +35,4 @@ contact 010-5663-6055 / poohksy123@gmail.com
    2. 상품선택패턴이나 찜바구니 기록등 데이터가 생기면 협업필터링 확장 가능
      -> 좀더 세밀한 개인 성향 기반의 추천 가능
 
-# CRUD 기능의 홈페이지 프로젝트(gradle/MVC/)(https://github.com/abcd-2020/portfolio)
+### CRUD 기능의 홈페이지 프로젝트(gradle/MVC/)(https://github.com/abcd-2020/portfolio)
