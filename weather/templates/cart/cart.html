@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>찜바구니</h1>
+상품을 누르시면 구매가능한 페이지로 이동합니다.<hr>
+
+<div>
+    {% if not cart_item %}
+    <div>
+        <h2>찜한 상품이 없습니다.</h2>
+    {% else %}
+        {% for cart_item in cart_item %}
+
+            <div>
+            <ul style-type="none;" style="float:left; margin-right:50px;" >
+                <p><img src = "{{ cart_item.product.product_photo.url }}" alt="" height="180" width="200"></p>
+            <a onclick="window.open('http://{{cart_item.product.product_url}}')">{{ cart_item.product.name }}<br>
+                {{ cart_item.product.price }}<br><br>
+            <a onclick="alert('상품이 삭제되었습니다.');" href="/cart/delete?prod_id={{cart_item.product.id}}"><button> 삭제 </button></a>
+            </a></ul>
+            </div>
+            <div>
+
+            </div>
+        {% endfor %}
+    {%  endif %}
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
+    <div align="center" >
+<!-- 페이징처리 시작 -->
+    {% if cart_item.has_previous %}
+         <a class="page-link" href="?page={{ cart_item.previous_page_number }}&q={{ q }}" href="#">이전</a>
+    {% else %}
+         <a class="page-link" tabindex="-1"  href="#">이전</a>
+    {% endif %}
+
+        <!-- 페이지리스트 -->
+    {% for page_number in cart_item.paginator.page_range %}
+        {% if cart_item.number|add:-3 <= page_number <= cart_item.number|add:3 %}
+        {% if page_number == cart_item.number %}
+            <a class="page-link" href="?page={{ page_number }}&q={{ q }}" href="#">{{ page_number }}</a>
+
+        {% else %}
+            <a class="page-link" href="?page={{ page_number }}&q={{ q }}" href="#">{{ page_number }}</a>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <!-- 다음페이지 -->
+    {% if cart_item.has_next %}
+            <a class="page-link" href="?page={{ cart_item.next_page_number }}&q={{ q }}" href="#">다음</a>
+
+    {% else %}
+            <a class="page-link" tabindex="-1" href="#">다음</a>
+
+
+    {% endif %}
+    </div>
+</div>
+
+{% endblock %}

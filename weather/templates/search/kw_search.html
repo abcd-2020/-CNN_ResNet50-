@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div>
+    <form id="searchForm" action="/search" method="get">
+    {% csrf_token %}
+
+    <input type="hidden" id="q" name="q" value="{{ q|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+
+    <input type="text" placeholder="검색창"  name="q" value="{{q|default_if_none:''}}" >
+    <button type="submit" id="btn_search" >검색</button>
+    </form>
+     <hr>
+    <a>찜하기를 누르시면 찜바구니에 상품 저장이 가능합니다.</a>
+ </div>
+
+
+
+
+ <div>
+        <p><img src = "{{ prod_detail_v.product_photo.url }}" alt="" height="180" width="200"></p>
+        <a href="/search/{{prod_detail_v.id}}/ ">{{ prod_detail_v.name }}<br>{{ prod_detail_v.price }} <br><br>
+        <a onclick="alert('찜바구니에 상품을 추가했습니다. \n\n장바구니로 이동합니다.');"
+           href="/cart/add_cart?prod_id={{prod_detail_v.id}}"><button>찜하기</button></a></a>
+
+    {% if not prod_search %}
+        <h1>검색 결과가 없습니다</h1>
+    {% else %}
+        {% for prod_search in prod_search %}
+                <div>
+                <ul style-type="none;" style="float:left; margin-right:50px;" >
+                    <p><img src = "{{ prod_search.product_photo.url }}" alt="" height="180" width="200"></p>
+                    <a href="/search/{{prod_search.id}}/ ">{{ prod_search.name }}<br>{{ prod_search.price }} <br><br>
+                    <a onclick="alert('찜바구니에 상품을 추가했습니다. \n\n장바구니로 이동합니다.');"
+                       href="/cart/add_cart?prod_id={{prod_search.id}}"><button>찜하기</button></a></a>
+                </ul>
+                </div>
+        {% endfor %}
+    {% endif %}
+ <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ </div>
+
+
+
+ <div align="center">
+    <!-- 페이징처리 시작 -->
+    {% if prod_search.has_previous %}
+         <a class="page-link" href="?page={{ prod_search.previous_page_number }}&q={{ q }}" href="#">이전</a>
+    {% else %}
+         <a class="page-link" tabindex="-1"  href="#">이전</a>
+    {% endif %}
+
+        <!-- 페이지리스트 -->
+    {% for page_number in prod_search.paginator.page_range %}
+        {% if prod_search.number|add:-3 <= page_number <= prod_search.number|add:3 %}
+        {% if page_number == prod_search.number %}
+            <a class="page-link" href="?page={{ page_number }}&q={{ q }}" href="#">{{ page_number }}</a>
+
+        {% else %}
+            <a class="page-link" href="?page={{ page_number }}&q={{ q }}" href="#">{{ page_number }}</a>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <!-- 다음페이지 -->
+    {% if prod_search.has_next %}
+            <a class="page-link" href="?page={{ prod_search.next_page_number }}&q={{ q }}" href="#">다음</a>
+
+    {% else %}
+            <a class="page-link" tabindex="-1" href="#">다음</a>
+
+
+    {% endif %}
+ </div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{##}
+{#{% block content %}#}
+{##}
+{#    <!-- 버튼-->#}
+{##}
+{#    <div class="row justify-content-end my-3">#}
+{#        <div class="col-4 input-group">#}
+{#            <input type="text" value="{{ form.searchWord.value|default_if_none:'' }}">#}
+{#            <div class="input-group-append">#}
+{#                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#        <action="" method="get">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_table }} <!-- form을 테이블로 보여줌 -->#}
+{##}
+{##}
+{#            {% if object_list %}  <!-- # 검색 결과가 있을 경우 -->#}
+{#                {% for post in object_list %}#}
+{#                    {<a href="{{ prod_search_list.get_absolute_url }}">{{ prod_search_list.name }}</a><!-- 검색된 리스트를 보여준다.  --> ##}
+{#                {% endfor %}#}
+{##}
+{#            {% elif searchWord %}<!-- # 검색 결과가 없을 경우 Search Word  -->#}
+{#                {{ searchWord }} Not Found!<!-- # 검색된 결과가 없다는 메세지를 보여준다. -->#}
+{#            {% endif %}#}
+{##}
+{#        </div>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#{% endblock %}#}
