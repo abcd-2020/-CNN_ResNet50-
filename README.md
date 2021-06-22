@@ -29,6 +29,7 @@ contact 010-5663-6055 / poohksy123@gmail.com
 ![image](https://user-images.githubusercontent.com/69621976/122885249-e0be3f00-d379-11eb-8698-4c7d857f6764.png)
 ![image](https://user-images.githubusercontent.com/69621976/122885349-f7fd2c80-d379-11eb-9058-a07251bd8ee2.png)
 ![image](https://user-images.githubusercontent.com/69621976/122889453-c5553300-d37d-11eb-81ca-1c5b1ae7cd7b.png)
+   
    iii. 확장 가능성<br>
    1. 의류데이터를 확장하고 하이퍼 파라메터 최적화로 결과 개선 가능
    2. 상품선택패턴이나 찜바구니 기록등 데이터가 생기면 협업필터링 확장 가능
